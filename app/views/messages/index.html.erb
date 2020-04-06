@@ -1,0 +1,6 @@
+<h1>メッセージ一覧</h1>
+<% @messages.each do |message| %>
+    <p>
+    <%= message.name%> <%= link_to "詳細", "" %>  <%= link_to "編集", "" %>  <%= link_to "削除", "" %>
+    </p>
+<% end %>
