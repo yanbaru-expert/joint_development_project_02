@@ -2,7 +2,11 @@
 
 共同開発（基礎）へようこそ！
 
-共同開発（基礎）で作成するアプリのサンプルは[こちら](https://joint-development-project.herokuapp.com/users)です。
+## アプリのサンプル
+
+共同開発（基礎）で作成するアプリのサンプルはこちらです。
+
+- [https://joint-development-project.herokuapp.com/users](https://joint-development-project.herokuapp.com/users)
 
 ## 開発環境
 
@@ -49,9 +53,9 @@ bin/rails db:create
   - 担当タスクに応じたものを1つだけ選んで実行して下さい
 
 ```bash
-git checkout -b feature/crud_for_users
-git checkout -b feature/crud_for_messages
-git checkout -b feature/crud_for_tasks
+git checkout -b feature/crud-for-users
+git checkout -b feature/crud-for-messages
+git checkout -b feature/crud-for-tasks
 ```
 
 これで，開発準備が完了です。
@@ -67,15 +71,16 @@ git remote add origin リポジトリURL
 
 テキスト教材「resources を使ったCRUD処理の実装」を参考に，担当タスクの CRUD を実装して下さい。
 
-この共同開発（基礎）では，コミットのタイミングを指定させていただきます。次のタイミングでコミットを行って下さい。
+- この共同開発（基礎）では，コミットのタイミングを指定させていただきます。次のタイミングで***計7回***コミットを行って下さい。
+  - プッシュは最後に1回行うだけでOKです
 
 1. `rails g model` コマンドで「テーブル」と「モデル」を作成し，マイグレーションを行う
 2. `rails g controller` コマンドで「コントローラ」を作成し，ルーティングを`resources`で定義
 3. 新規投稿機能 `new, create` を実装（ストロングパラメータを利用）
 4. 一覧表示機能 `index` を実装（全てのカラムを表示しない点に注意して下さい）
 5. 詳細表示機能 `show` を実装
-6. 削除機能 `destroy` を実装
-7. 編集機能 `edit, update` を実装
+6. 編集機能 `edit, update` を実装
+7. 削除機能 `destroy` を実装
 
 - コミットメッセージは履歴が残ります。「変更内容がおおよそ分かる」ように書きましょう。日本語でOKです。
 
@@ -95,16 +100,65 @@ git push origin HEAD
   - 必ず，プルリクのURLを貼るようにして下さい
   - URLは `Conversation` の方を貼り付けて下さい。差分 `Files changed` の方を貼らないようにして下さい。
 
-コンフリクトが出ていないか必ず確認をして下さい。コンフリクトが出ている場合は，解消をしてからレビュー依頼して下さい。
+【注意】「コンフリクト」が出ていないか必ず確認をして下さい。コンフリクトが出ている場合は，解消をしてからレビュー依頼して下さい。
+
+ページの一番下に次のような表示が出ていれば，コンフリクトが起きています。
+
+```
+This branch has conflicts that must be resolved
+
+Conflicting files
+
+config/routes.rb
+db/schema.rb
+```
 
 ## 4. コンフリクトの解消手順
 
-コンフリクトの解消は，**絶対にGitHubから行わないで下さい**。履歴が残りません。
+### 4.0 コンフリクトとは
 
-- masterブランチに移動して最新をプル
+マージした際，同じ箇所が変更されているときに起こるのが「コンフリクト（競合）」です。
+
+【例】
+
+1行目に「おはよう」と書かれている「sample.txt」があるとします。
+
+AさんとBさんがブランチを切り，共同開発を行うとします。
+
+- Aさんは「おはよう」を「こんにちは」に変更
+
+- Bさんは「おはよう」を「こんばんは」に変更
+
+このとき，Aさんが master ブランチをマージした後，Bさんがマージした場合，Gitは「おはよう」を「こんにちは」にすべきか「こんばんは」にすべきかが分かりません。
+
+そのため「コンフリクト」が起こります。
+
+### 4.1 コンフリクトが起きているかどうかの確認
+
+共同開発（基礎）でコンフリクトが起こる可能性があるのは，次の2つのファイルです。
+
+- `config/routes.rb`
+- `db/schema.rb`
+
+【注意】コンフリクトの解消は，**GitHubから行わないで下さい**。以下の手順で解消して下さい。
+
+### 4.2 ローカルで master ブランチをマージ
+
+（コミットがまだであれば，先に行ってください）
+
+- masterブランチに移動して master ブランチを最新にする
 
 ```bash
+# masterブランチに移動
+
 git checkout master
+
+# 現在のブランチを確認
+
+git branch
+
+# masterブランチに移動できていることを確認した上で，次を実行
+
 git pull
 ```
 
@@ -116,15 +170,54 @@ git checkout ブランチ名
 git merge master
 ```
 
-- コンフリクトが起きたファイルをエディタで修正
-  - `git status` を実行した際に， `both added: ファイル名`と書かれているファイルがコンフリクトしています
-  - `<<<<<<< HEAD`, `=======`, `>>>>>>> master`がコンフリクトを起こしている箇所です
-  - 修正後に必ず動作確認を行って下さい
+### 4.3 コンフリクトの確認
 
-- マージを完了させる
+`git status` を実行した際に， `both added: ファイル名`と書かれているファイルがコンフリクトしています
 
-```bash
-git merge --continue
+コンフリクトが起きているファイルをエディタで開きましょう。
+
+`<<<<<<<`, `=======`, `>>>>>>>`が追加されている箇所でコンフリクトしています。
+
+master ブランチをマージした場合は，`======`の下側が元の内容です。それに自分の変更を加えるのが原則です。
+
+（単純に「両方残せばよい」「片方を削ればよい」という話ではありません）
+
+### 4.4 コンフリクトの解消
+
+- `config/routes.rb`
+
+両方残すように修正しましょう。不要な`<<<<<<<`, `=======`などは削除しましょう。
+
+- `db/schema.rb`
+
+このファイルは，マイグレーションを行った際に自動的に編集されるファイルです。エディタで直接編集するのは望ましくありません。コマンドで対応しましょう。
+
+次の2つを実行すればコンフリクトを解消できます。
+
+```
+# 作業ブランチで行ったマイグレーションをロールバック
+
+rails db:rollback
+
+# db/schema.rb のコンフリクトが消えていることを確認した上で，マイグレーションを実行
+
+rails db:migrate
+```
+
+### 4.5 マージを完了させる
+
+- `git diff` で差分を確認
+  - `<<<<<<<`, `=======`などが残っていないか確認
+  
+- コンフリクトの解消後，コミットを行う必要があります。その後，プッシュしましょう。
+
+```
+git add .
+git commit
+
+# vimが起動します。コミットメッセージはデフォルトでよいので，shiftキーを押しながら「z」を2回
+
+git push origin HEAD
 ```
 
 ## 5. レビュー後の修正手順
@@ -153,7 +246,8 @@ git pull
 
 余裕のある方は，次のリファクタリング・修正に挑戦していただいてもOKです。
 
-ユーザー関連のみ，[サンプル](https://joint-development-project-plus.herokuapp.com/users)を作成しました。
+- ユーザー関連のみ，サンプルを作成しました。
+  - [https://joint-development-project-plus.herokuapp.com/users](https://joint-development-project-plus.herokuapp.com/users)
 
 - `form_for` を 現在推奨されている `form_with` に変更し，`url`, `method` を書かない記法に変更
   - [Qiitaの参考記事](https://qiita.com/hmmrjn/items/24f3b8eade206ace17e2)
@@ -168,6 +262,7 @@ git pull
   - Bootstrap は gem で導入済みです。class を追加するだけで使用できます。
   - `<%= form.text_field :name, class: "form-control" %>`のように書くことでクラスを追加できます
   - [Bootstrap公式 Forms](https://getbootstrap.jp/docs/4.4/components/forms/)
+  - [Bootstrap公式 Tables](https://getbootstrap.jp/docs/4.4/content/tables/)
   - [Bootstrap公式 Cards](https://getbootstrap.jp/docs/4.4/components/card/)
   - [Bootstrap インプットグループ](http://www.tohoho-web.com/bootstrap/input_group.html)
 
