@@ -1,6 +1,6 @@
 <h1>メッセージ一覧</h1>
 <% @messages.each do |message| %>
     <p>
-    <%= message.name %> <%= link_to "詳細", message_path(message.id) %>  <%= link_to "編集", "" %>  <%= link_to "削除", "" %>
+    <%= message.name %> <%= link_to "詳細", message_path(message.id) %>  <%= link_to "編集", "" %>  <%= link_to "削除", message_path(message.id), :method => :delete, data: { confirm: "削除しますか？" } %>
     </p>
 <% end %>
