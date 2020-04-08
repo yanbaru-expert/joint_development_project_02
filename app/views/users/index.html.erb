@@ -2,5 +2,6 @@
 <% @users.each do |user| %>
   <p>
     <%= user.name %>
+    <%= link_to "詳細", user %>
   </p>
 <% end %>
