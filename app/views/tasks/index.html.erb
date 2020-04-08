@@ -1,7 +1,7 @@
 <h1>タスク一覧</h1>
 <% @tasks.each do |task| %>
-    <p>
+  <p>
     <%= task.title %> 
-
-    </p>
+    <%= link_to "詳細", task_path(task.id) %>
+  </p>
 <% end %>
