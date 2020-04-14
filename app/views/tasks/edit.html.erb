@@ -1,7 +1,7 @@
-<%= form_for @task, url: task_path, html: { method: :patch } do |f| %>
+<%= form_with model: @task, local: true do |f| %>
   <h1>タスク 編集</h1>
   <p>タイトル <%= f.text_field :title %></p>
   <p>内容 <%= f.text_field :detail %></p>
-  <input type="submit" value="送信">
+  <%= f.submit %>
 <% end %>
 <%= link_to "一覧画面へ", tasks_path %>
