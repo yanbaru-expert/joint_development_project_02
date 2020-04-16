@@ -1,5 +1,5 @@
+<h1>タスク 作成</h1>
 <%= form_with model: @task, local: true do |f| %>
-  <h1>タスク 作成</h1>
   <p>タイトル <%= f.text_field :title %></p>
   <p>内容 <%= f.text_field :detail %></p>
  <%= f.submit %>
