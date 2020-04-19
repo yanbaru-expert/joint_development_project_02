@@ -9,7 +9,14 @@ class UsersController < ApplicationController
   end
 
   def create
-    User.create(user_params)
+    @user = User.new(user_params)
+    if @user.save
+      redirect_to users_path,notice: "新規ユーザーが登録されました。"
+    else
+      flash.now[:alert]="ユーザー情報が正しくないため保存されませんでした。"
+      @users = User.all
+      render :index
+    end
   end
 
   def edit
@@ -28,6 +35,7 @@ class UsersController < ApplicationController
   def destroy
     user = User.find(params[:id])
     user.destroy
+    redirect_to users_path
   end
 
   private
