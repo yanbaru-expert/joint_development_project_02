@@ -1,6 +1,6 @@
 <h1>ユーザー 編集</h1>
-<br>
 <%= form_with model: @user, local: true do|f| %>
+  <div class="form-group">
   <div class="input-group mb-3">
     <div class="input-group-prepend">
       <span class="input-group-text" id="text1a">氏名</span>
@@ -12,9 +12,10 @@
     <div class="input-group-prepend">
       <span class="input-group-text" id="text1a">年齢</span>
     </div>
-    <span><%= f.text_field :age, class: "form-control" %></span>
+    <%= f.text_field :age, class: "form-control" %>
   </div>
   <%= f.submit class: "btn btn-primary btn-block", value: "送信"%>
   <hr>
   <%= link_to "一覧画面へ", users_path, class: "btn btn-info btn-block", value: "一覧画面へ" %>
 <% end %>
+</div>

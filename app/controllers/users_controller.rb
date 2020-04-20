@@ -14,7 +14,6 @@ class UsersController < ApplicationController
       redirect_to users_path,notice: "新規ユーザーが登録されました。"
     else
       flash.now[:alert]="ユーザーの登録に失敗しました。"
-      @user = User.new
       render :new
     end
   end
