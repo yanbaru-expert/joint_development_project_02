@@ -17,21 +17,32 @@ a:hover {
     text-align:center;
 }
 
-.col-4{
-    margin: 0 5px;
-}
-
 .btn-primary{
-    margin-right: 20px;
+    margin-right: 15px;
 }
 
 .btn-success{
-    margin-right: 20px;
+    margin-right: 15px;
+}
+
+.alert-notice {
+  @extend .alert-success;
+}
+
+.alert-alert {
+  @extend .alert-danger;
+}
+
+.field_with_errors {
+  display: contents;
+  input {
+    @extend .is-invalid;
+  }
 }
 
 .container{
     width: 1200px;
     width: 70%;
-    margin: 3% 15%;
-    padding: 0%;
+    margin: 0% 15%;
+    padding: 0% 0%;
 }

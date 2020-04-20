@@ -1,19 +1,21 @@
 <h1>ユーザー 一覧</h1>
 <hr>
-<%= link_to "新規投稿", new_user_path, class: "btn btn-info btn-lg btn-block" %>
+<%= link_to "新規投稿", new_user_path, class: "btn btn-info btn-mg btn-block" %>
 <hr>
 <% @users.each do |user| %>
-  <div class="table">
-    <div class="row">
-      <div class="col-6">
-        <%= user.name %>
-      </div>
-      <div class="col-5 ml-auto">
-        <%= link_to "詳細", user_path(user), method: :get, class: "btn btn-primary" %>
-        <%= link_to "編集", edit_user_path(user), method: :get, class: "btn btn-success" %>
-        <%= link_to "削除", user_path(user), method: :delete, class: "btn btn-danger", data: {confirm: "削除しますか？"} %>
-      </div>
-    </div>
-  </div>
+  <table class="table table-borderless">
+    <tbody>
+    <tr>
+      <td>
+          <%= user.name %>
+      </td>
+        <td align="right">
+          <%= link_to "詳細", user_path(user), method: :get, class: "btn btn-primary" %>
+          <%= link_to "編集", edit_user_path(user), method: :get, class: "btn btn-success" %>
+          <%= link_to "削除", user_path(user), method: :delete, class: "btn btn-danger", data: {confirm: "削除しますか？"} %>
+        </td>
+    </tr>
+    </tbody>
+  </table>
   <hr>
 <% end %>

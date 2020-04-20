@@ -13,9 +13,9 @@ class UsersController < ApplicationController
     if @user.save
       redirect_to users_path,notice: "新規ユーザーが登録されました。"
     else
-      flash.now[:alert]="ユーザー情報が正しくないため保存されませんでした。"
-      @users = User.all
-      render :index
+      flash.now[:alert]="ユーザーの登録に失敗しました。"
+      @user = User.new
+      render :new
     end
   end
 
@@ -24,8 +24,14 @@ class UsersController < ApplicationController
   end
 
   def update
-    user = User.find(params[:id])
-    user.update(user_params)
+    @user = User.find(params[:id])
+    if @user.update_attributes(user_params)
+      redirect_to users_path
+      flash[:success] = "ユーザーの編集に成功しました。"
+    else
+      flash.now[:alert]="ユーザーの編集に失敗しました。"
+      render :edit
+    end
   end
 
   def show
