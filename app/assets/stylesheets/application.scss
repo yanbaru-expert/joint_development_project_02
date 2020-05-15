@@ -12,3 +12,36 @@ a {
 a:hover {
     text-decoration: underline;
 }
+
+.button_wrapper{
+    text-align:center;
+}
+
+.btn-primary{
+    margin-right: 15px;
+}
+
+.btn-success{
+    margin-right: 15px;
+}
+
+.alert-notice {
+  @extend .alert-success;
+}
+
+.alert-alert {
+  @extend .alert-danger;
+}
+
+.field_with_errors {
+  display: contents;
+  input {
+    @extend .is-invalid;
+  }
+}
+
+.container{
+    width: 720px;
+    margin: 20px 350px;
+    padding: 20px 20px;
+}
